@@ -1,0 +1,26 @@
+# Virtual Shackleton Apache directives
+
+# Load using:
+#	# Virtual Shackleton
+#	Include /path/to/virtual-shackleton/.httpd.conf.extract.txt
+#	Use MacroVirtualShackleton /shackleton "/path/to/site/:/path/to/virtual-shackleton/:/path/to/php/libraries/"
+
+
+<Macro MacroVirtualShackleton $baseUrl $includePath>
+	
+	# Include path
+	<Location $baseUrl>
+		php_value include_path "$includePath"
+	</Location>
+	
+	# Front controller application support
+	Use MacroFrontControllerApplication "$baseUrl/" "Virtual Shackleton"
+	
+	# Application routing
+	RewriteRule ^$baseUrl/(authors|expeditions|articles)/$ $baseUrl/index.html?action=$1 [L]
+	RewriteRule ^$baseUrl/(authors|expeditions)/(.+).html$ $baseUrl/index.html?action=items&type=$1&item=$2 [L]
+	RewriteRule ^$baseUrl/articles/(.+).html$ $baseUrl/index.html?action=article&item=$1 [L]
+	RewriteRule ^$baseUrl/images/([^.]+).html$ $baseUrl/index.html?action=image&item=$1 [L]
+	RewriteRule ^$baseUrl/images/([^.]+).(jpg|mov)$ - [L]
+	
+</Macro>

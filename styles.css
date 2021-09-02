@@ -1,0 +1,29 @@
+#virtualshackleton div.frontpagebox {border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;}
+#virtualshackleton img.frontpage {width: 153px; height: 200px; float: right; padding-left: 20px; border: 0;}
+#virtualshackleton h2.article {margin-top: 0; height: 50px;}
+#virtualshackleton div.infobox {border-style: solid; border-color: #eee; border-width: 1px 0; padding: 0; color: #999;}
+#virtualshackleton div.infobox p {margin: 8px 0;}
+#virtualshackleton div.infobox a {color: #36f;}
+#virtualshackleton div.context {float: right; width: 222px; margin-left: 20px;}
+#virtualshackleton div.context ul {margin: 4px 0; padding: 0;}
+#virtualshackleton div.context li {list-style-type: none; text-align: center;}
+#virtualshackleton div.context img {border: 0; width: 10px; height: 10px; padding: 0 5px;}
+#virtualshackleton div.context img a {display: block;}
+#virtualshackleton div.context span.blank {width: 20px; padding: 0; height: 10px;}
+#virtualshackleton div.image {float: right; width: 200px; margin: 0 0 10px 20px; min-height: 60px; border: 1px solid #ddd; padding: 10px; text-align: center;}
+#virtualshackleton div.image img {border: 0;}
+#virtualshackleton div.image p.imagecopyright {margin-top: -3px; text-align: right; font-style: italic;}
+#virtualshackleton div.image p.imagecopyright a {color: #36f;}
+#virtualshackleton div.image p {text-align: center; font-style: italic; margin-top: 5px;}
+#virtualshackleton div.imagenone {border-color: #eee; border-style: dotted;}
+#virtualshackleton div.imagelarge {float: none; margin: 0 auto; width: 400px;}
+#virtualshackleton div.linebreak {clear: both;}
+#virtualshackleton div#images {clear: left;}
+#virtualshackleton div#images div.image {float: left;}
+#virtualshackleton div.metadata {margin-right: 242px; margin-bottom: 25px;}
+#virtualshackleton div.article p {margin-top: 11px; margin-bottom: 11px;}
+#virtualshackleton ul.types {margin-left: 5px; padding-left: 0;}
+#virtualshackleton ul.types li {margin-top: 12px; list-style-type: none;}
+#virtualshackleton ul.types ul {margin-left: 15px;}
+#virtualshackleton ul.types li li {margin-top: 4px;}
+

@@ -1,0 +1,15 @@
+<?php
+
+# Settings
+$settings = array (
+	'hostname' => 'localhost',
+	'username' => 'my_username',
+	'password' => 'my_password',
+	'copyrightUrl' => '/path/to/copyrightpage.html',
+);
+
+# Load and run the application with the above settings
+require_once ('virtualShackleton.php');
+new virtualShackleton ($settings);
+
+?>
