@@ -89,11 +89,11 @@ class virtualShackleton extends frontControllerApplication
 			CREATE TABLE `articles` (
 			  `archiveNumber` varchar(85) NOT NULL DEFAULT '',
 			  `visibleOnline` enum('Yes','No') NOT NULL DEFAULT 'Yes',
-			  `type__JOIN__virtualShackleton__types__reserved` int DEFAULT NULL,
+			  `typeId` int DEFAULT NULL,
 			  `copyExists` enum('No','Yes','Unknown') NOT NULL DEFAULT 'No',
-			  `author__JOIN__virtualShackleton__authors__reserved` varchar(85) DEFAULT NULL,
+			  `authorId` varchar(85) DEFAULT NULL,
 			  `otherAuthors` mediumtext,
-			  `expedition__JOIN__virtualShackleton__expeditions__reserved` varchar(85) DEFAULT NULL,
+			  `expeditionId` varchar(85) DEFAULT NULL,
 			  `objectBriefDescription` varchar(255) NOT NULL DEFAULT '',
 			  `objectFurtherDescription` mediumtext,
 			  `dateOfArticle` date NOT NULL,
@@ -171,9 +171,9 @@ class virtualShackleton extends frontControllerApplication
 				'introductionHtml' => "<p>The following is a list of the expeditions, ordered by date. Clicking on any expedition will show the list of articles from that expedition.</p>",
 				'query' => '
 					SELECT DISTINCT expeditions.*
-					FROM expeditions, ' . $this->settings['table'] . '
+					FROM expeditions, ' . $this->settings['table'] . "
 					WHERE
-						    articles.expedition__JOIN__' . $this->settings['database'] . "__expeditions__reserved = expeditions.id
+						    articles.expeditionId = expeditions.id
 						AND articles.visibleOnline = 'Yes'
 					ORDER BY startDate;
 				",
@@ -186,9 +186,9 @@ class virtualShackleton extends frontControllerApplication
 				'introductionHtml' => "<p>The following is a list of the authors, ordered by surname. Clicking on any author will show the list of articles by them.</p>",
 				'query' => '
 					SELECT DISTINCT authors.*
-					FROM authors, ' . $this->settings['table'] . '
+					FROM authors, ' . $this->settings['table'] . "
 					WHERE
-						    articles.author__JOIN__' . $this->settings['database'] . "__authors__reserved = authors.id
+						    articles.authorId = authors.id
 						AND articles.visibleOnline = 'Yes'
 					ORDER BY authors.surname;
 				",
@@ -369,7 +369,7 @@ class virtualShackleton extends frontControllerApplication
 		$type = preg_replace ('/s$/', '', $_GET['type']);
 		
 		# Create a query to get articles, with limitation added
-		$limitation = "{$type}__JOIN__virtualShackleton__{$type}s__reserved = :id AND ";
+		$limitation = "{$type}Id = :id AND ";
 		$preparedStatementValues = array ('id' => $id);
 		$query = str_replace ('WHERE ', 'WHERE ' . $limitation, $this->types['articles']['query']);
 		
@@ -474,9 +474,9 @@ class virtualShackleton extends frontControllerApplication
 		$query = '
 			SELECT articles.archiveNumber, types.documentType, types.manuscriptType, authors.id authorid, authors.surname, authors.forename, authors.dateOfBirth, authors.dateOfDeath, articles.otherAuthors, expeditions.id expeditionid, expeditions.name, articles.objectBriefDescription, articles.objectFurtherDescription, articles.dateOfArticle, articles.endDateOfArticle, articles.numberOfPages, articles.additionalInformation, articles.photographFilename
 			FROM ' . $this->settings['table'] . "
-			LEFT OUTER JOIN authors ON articles.author__JOIN__" . $this->settings['database'] . "__authors__reserved = authors.id
-			LEFT OUTER JOIN expeditions ON articles.expedition__JOIN__" . $this->settings['database'] . "__expeditions__reserved = expeditions.id
-			LEFT OUTER JOIN types ON articles.type__JOIN__" . $this->settings['database'] . "__types__reserved = types.id
+			LEFT OUTER JOIN authors ON articles.authorId = authors.id
+			LEFT OUTER JOIN expeditions ON articles.expeditionId = expeditions.id
+			LEFT OUTER JOIN types ON articles.typeId = types.id
 			WHERE archiveNumber = :archiveNumber
 		;";
 		
@@ -594,7 +594,7 @@ class virtualShackleton extends frontControllerApplication
 			FROM {$type}s, " . $this->settings['table'] . "
 			WHERE
 				    {$type}s.id = :id
-				AND articles.{$type}__JOIN__" . $this->settings['database'] . "__{$type}s__reserved = {$type}s.id
+				AND articles.{$type}Id = {$type}s.id
 				AND articles.visibleOnline = 'Yes'
 			ORDER BY dateOfArticle;
 		";
@@ -790,6 +790,7 @@ class virtualShackleton extends frontControllerApplication
 			'tableCommentsInSelectionListOnly' => true,
 			'fieldFiltering' => false,
 			'truncateValues' => 80,
+			'simpleJoin' => true,
 		);
 		
 		# Define table attributes
