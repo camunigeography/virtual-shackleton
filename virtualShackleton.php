@@ -22,7 +22,6 @@ class virtualShackleton extends frontControllerApplication
 			'imageDirectory'		=> '/images/',				// Location of the images directory from baseUrl
 			'imageWidth'			=> 200,
 			'mediaTypes'			=> array ('.jpg', '.mov'),
-			'copyrightUrl'			=> NULL,
 		);
 		
 		# Return the defaults
@@ -84,6 +83,12 @@ class virtualShackleton extends frontControllerApplication
 			  `privilege` enum('Administrator','Restricted administrator') NOT NULL DEFAULT 'Administrator' COMMENT 'Administrator level',
 			  PRIMARY KEY (`username`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='System administrators';
+			
+			CREATE TABLE `settings` (
+			  `id` int NOT NULL COMMENT 'Automatic key (ignored)',
+			  `copyrightUrl` varchar(255) NOT NULL DEFAULT '/' COMMENT 'Copyright URL'
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Settings';
+			INSERT INTO `settings` (`id`, `copyrightUrl`) VALUES (1, '/');
 			
 			-- Articles
 			CREATE TABLE `articles` (
