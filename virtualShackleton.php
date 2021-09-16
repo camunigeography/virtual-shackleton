@@ -113,8 +113,8 @@ class virtualShackleton extends frontControllerApplication
 			  `surname` varchar(85) NOT NULL DEFAULT '',
 			  `forename` varchar(85) DEFAULT NULL,
 			  `status` enum('Person','Company') DEFAULT 'Person',
-			  `dateOfBirth` int DEFAULT '0',
-			  `dateOfDeath` int DEFAULT '0',
+			  `dateOfBirth` int DEFAULT NULL,
+			  `dateOfDeath` int DEFAULT NULL,
 			  `aboutText` mediumtext,
 			  PRIMARY KEY (`id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
