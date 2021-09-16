@@ -356,6 +356,9 @@ class virtualShackleton extends frontControllerApplication
 	# List articles of a particular container-grouping (e.g. all articles in a particular expedition)
 	public function items ($id)
 	{
+		# Start the HTML
+		$html = '';
+		
 		# Get the type
 		if (!$type = (isSet ($_GET['type']) && in_array ($_GET['type'], array ('authors', 'expeditions')) ? $_GET['type'] : false)) {
 			$html = $this->page404 ();
@@ -403,7 +406,12 @@ class virtualShackleton extends frontControllerApplication
 		$totalItems = count ($data);
 		$introductionHtml  = "\n<h2>Articles {$reference}"  . ($typeDetails['status'] == 'Company' ? ' about expedition preparations' : '') . '</h2>';
 		$introductionHtml .= "\n<p>The following " . ($totalItems == 1 ? 'article is' : "{$totalItems} articles are") . " $reference:</p>";
-		$html = $this->createList ($data, $stringFormat, $introductionHtml);
+		$html .= $this->createList ($data, $stringFormat, $introductionHtml);
+		
+		# Add admin editing link
+		if ($this->userIsAdministrator) {
+			$html .= "\n<p class=\"right\"><a class=\"actions right\" href=\"{$this->baseUrl}/data/{$type}s/" . $this->doubleEncode ($id) . "/edit.html\"><img src=\"/images/icons/pencil.png\" class=\"icon\" /> Edit {$type}</a></p>";
+		}
 		
 		# For an expedition, assign the dates then contruct information about the expedition
 		if ($type == 'expedition') {
@@ -451,6 +459,9 @@ class virtualShackleton extends frontControllerApplication
 	# Article page
 	public function article ($id)
 	{
+		# Start the HTML
+		$html = '';
+		
 		# Decode the URL
 		$id = $this->convertUrl ($id, $directionIsEncode = false);
 		
@@ -505,8 +516,13 @@ class virtualShackleton extends frontControllerApplication
 			}
 		}
 		
-		# Create the HTML, starting with the context box
-		$html  = "\n" . '<div class="context infobox">';
+		# Add admin editing link
+		if ($this->userIsAdministrator) {
+			$html .= "\n<p class=\"right\"><a class=\"actions right\" href=\"{$this->baseUrl}/data/articles/" . $this->doubleEncode ($id) . "/edit.html\"><img src=\"/images/icons/pencil.png\" class=\"icon\" /> Edit article</a></p>";
+		}
+		
+		# Assemble the HTML, starting with the context box
+		$html .= "\n" . '<div class="context infobox">';
 		$html .= "\n\t" . '<ul>';
 		foreach ($types as $type => $text) {
 			$html .= "\n\t\t" . '<li>' . ($record[$type . 'id'] ? $link[$type]['previous'] . ' <a href="' . $this->baseUrl . '/' . $type . 's/' . $record[$type . 'id'] . '.html">' . $text . '</a> ' . $link[$type]['next'] : '&nbsp;') . '</li>';
@@ -810,6 +826,14 @@ class virtualShackleton extends frontControllerApplication
 		
 		# Return the properties
 		return $dataBindingAttributes;
+	}
+	
+	
+	# Function to urlencode a string and double-encode slashes, necessary for links into the editing, as IDs can contain /
+	private function doubleEncode ($string)
+	{
+		# Return the string, double-encoding slashes only
+		return rawurlencode (str_replace ('/', '%2f', $string));
 	}
 }
 
