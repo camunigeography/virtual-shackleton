@@ -648,7 +648,7 @@ class virtualShackleton extends frontControllerApplication
 		$html .= "\n\t" . '<p class="imagecopyright"><a href="' . $this->settings['copyrightUrl'] . '">&copy; SPRI</a></p>';
 		$html .= "\n\t" . '<p>' . (($indicateMore) ? '<a href="#images">More and larger images below' : $largerVersionLink . 'Larger image') . '</a></p>';
 		$html .= "\n" . '</div>';
-		$html .= ($addBreak ? "\n" . '<div class="linebreak" />' : '');
+		$html .= ($addBreak ? "\n" . '<div class="linebreak"></div>' : '');
 		
 		# Return the HTML
 		return $html;
