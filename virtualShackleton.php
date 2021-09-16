@@ -86,6 +86,7 @@ class virtualShackleton extends frontControllerApplication
 			
 			CREATE TABLE `settings` (
 			  `id` int NOT NULL COMMENT 'Automatic key (ignored)',
+			  `frontPageHtml` TEXT NULL COMMENT 'Front page notice',
 			  `copyrightUrl` varchar(255) NOT NULL DEFAULT '/' COMMENT 'Copyright URL'
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Settings';
 			INSERT INTO `settings` (`id`, `copyrightUrl`) VALUES (1, '/');
@@ -249,9 +250,10 @@ class virtualShackleton extends frontControllerApplication
 		$html .= "\n" . '<p>This project was proposed by William Mills and implemented by Caroline Gunn with the assistance of the <a href="/contacts/webmaster.html">Webmaster</a>.</p>';
 		
 		# Schools resource
-		$html .= "\n" . '<br />';
-		$html .= "\n" . '<h2>Shackleton resources for teachers</h2>';
-		$html .= "\n" . '<p><a href="/museum/resources/">Brilliant ideas to get your students thinking creatively</a> about polar exploration, with links across a wide range of subjects including maths, art, geography,science and literacy.</p>';
+		if ($this->settings['frontPageHtml']) {
+			$html .= "\n" . '<br />';
+			$html .= $this->settings['frontPageHtml'];
+		}
 		
 		# Show the HTML
 		echo $html;
