@@ -105,7 +105,7 @@ class virtualShackleton extends frontControllerApplication
 			  `internalNotes` mediumtext,
 			  `photographFilename` varchar(85) DEFAULT NULL,
 			  PRIMARY KEY (`archiveNumber`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Articles';
 			
 			-- Authors
 			CREATE TABLE `authors` (
@@ -117,7 +117,7 @@ class virtualShackleton extends frontControllerApplication
 			  `dateOfDeath` int DEFAULT NULL,
 			  `aboutText` mediumtext,
 			  PRIMARY KEY (`id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Authors';
 			
 			-- Expeditions
 			CREATE TABLE `expeditions` (
@@ -129,7 +129,7 @@ class virtualShackleton extends frontControllerApplication
 			  `leader` varchar(85) DEFAULT NULL,
 			  `aboutText` mediumtext,
 			  PRIMARY KEY (`id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Expeditions';
 			
 			-- Types
 			CREATE TABLE `types` (
@@ -139,7 +139,7 @@ class virtualShackleton extends frontControllerApplication
 			  `manuscriptType` varchar(255) DEFAULT NULL,
 			  `objectType` varchar(255) DEFAULT NULL,
 			  PRIMARY KEY (`id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Types';
 			
 			-- Grants
 			GRANT SELECT, INSERT, UPDATE, DELETE ON `virtualshackleton`.* TO 'virtualshackleton'@'localhost';
