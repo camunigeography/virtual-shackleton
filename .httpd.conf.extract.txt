@@ -23,4 +23,7 @@
 	RewriteRule ^$baseUrl/images/([^.]+).html$ $baseUrl/index.html?action=image&item=$1 [L]
 	RewriteRule ^$baseUrl/images/([^.]+).(jpg|mov)$ - [L]
 	
+	# Editing
+	Use MacroSinenomineEmbeddedWholeDb "$baseUrl" "/data" "editing"
+	
 </Macro>

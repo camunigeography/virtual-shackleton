@@ -13,6 +13,7 @@ class virtualShackleton extends frontControllerApplication
 			'h1'					=> '<h1>Shackleton items from the Archives</h1>',
 			'database'				=> 'virtualshackleton',
 			'administrators'		=> true,
+			'useEditing'			=> true,
 			'tabUlClass'			=> 'tabsflat',
 			'table'					=> 'articles',
 			'databaseStrictWhere'	=> true,
@@ -139,6 +140,9 @@ class virtualShackleton extends frontControllerApplication
 			  `objectType` varchar(255) DEFAULT NULL,
 			  PRIMARY KEY (`id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+			
+			-- Grants
+			GRANT SELECT, INSERT, UPDATE, DELETE ON `virtualshackleton`.* TO 'virtualshackleton'@'localhost';
 		";
 	}
 	
@@ -758,6 +762,54 @@ class virtualShackleton extends frontControllerApplication
 		
 		# Return the translated name if it exists, or if not the raw type
 		return (isSet ($abbreviations[$abbreviation]) ? $abbreviations[$abbreviation] : $abbreviation);
+	}
+
+
+	# Admin editing section, substantially delegated to the sinenomine editing component
+	public function editing ($attributes = array (), $deny = false, $sinenomineExtraSettings = array ())
+	{
+		# Define sinenomine settings
+		$sinenomineExtraSettings = array (
+			'int1ToCheckbox' => true,
+			'datePicker' => false,		// Chrome cannot handle dates earlier than 1970, so the native HTML5 date picker cannot be used
+			'hideTableIntroduction' => false,
+			'tableCommentsInSelectionListOnly' => true,
+			'fieldFiltering' => false,
+			'truncateValues' => 80,
+		);
+		
+		# Define table attributes
+		$attributesByTable = $this->formDataBindingAttributes ();
+		$attributes = array ();
+		foreach ($attributesByTable as $table => $attributesForTable) {
+			foreach ($attributesForTable as $field => $fieldAttributes) {
+				$attributes[] = array ($this->settings['database'], $table, $field, $fieldAttributes);
+			}
+		}
+		
+		# Define tables to deny editing for
+		$deny[$this->settings['database']] = array (
+			'administrators',
+			'settings',
+		);
+		
+		# Delegate to the default editor, which will echo the HTML
+		parent::editing ($attributes, $deny, $sinenomineExtraSettings);
+	}
+	
+	
+	# Helper function to define the dataBinding attributes
+	private function formDataBindingAttributes ()
+	{
+		# Define the properties, by table
+		$dataBindingAttributes = array (
+			'articles' => array (
+				'photographFilename' => array ('directory' => $_SERVER['DOCUMENT_ROOT'] . $this->imageDirectory, 'lowercaseExtension' => true, 'allowedExtensions' => array ('jpg')),
+			),
+		);
+		
+		# Return the properties
+		return $dataBindingAttributes;
 	}
 }
 

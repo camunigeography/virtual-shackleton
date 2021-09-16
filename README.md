@@ -28,6 +28,7 @@ Dependencies
 * [database.php database wrapper library](https://download.geog.cam.ac.uk/projects/database/)
 * [frontControllerApplication.php front controller application implementation library](https://download.geog.cam.ac.uk/projects/frontcontrollerapplication/)
 * [pureContent.php general environment library](https://download.geog.cam.ac.uk/projects/purecontent/)
+* sinenomine.php sineNomine database editor
 * [timedate.php time/date library](https://download.geog.cam.ac.uk/projects/timedate/)
 * [FamFamFam Silk Icons set](http://www.famfamfam.com/lab/icons/silk/)
 
