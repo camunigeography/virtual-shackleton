@@ -12,6 +12,7 @@ class virtualShackleton extends frontControllerApplication
 			'div'					=> strtolower (__CLASS__),
 			'h1'					=> '<h1>Shackleton items from the Archives</h1>',
 			'database'				=> 'virtualshackleton',
+			'administrators'		=> true,
 			'tabUlClass'			=> 'tabsflat',
 			'table'					=> 'articles',
 			'databaseStrictWhere'	=> true,
@@ -74,6 +75,14 @@ class virtualShackleton extends frontControllerApplication
 	public function databaseStructure ()
 	{
 		return "
+			-- Administrators
+			CREATE TABLE `administrators` (
+			  `username` varchar(255) NOT NULL COMMENT 'Username',
+			  `active` enum('','Yes','No') NOT NULL DEFAULT 'Yes' COMMENT 'Currently active?',
+			  `privilege` enum('Administrator','Restricted administrator') NOT NULL DEFAULT 'Administrator' COMMENT 'Administrator level',
+			  PRIMARY KEY (`username`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='System administrators';
+			
 			-- Articles
 			CREATE TABLE `articles` (
 			  `archiveNumber` varchar(85) NOT NULL DEFAULT '',
