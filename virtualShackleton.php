@@ -693,8 +693,9 @@ class virtualShackleton extends frontControllerApplication
 						// Throw error - should not have got this far
 				}
 				
-				# Return the HTML
-				return $html;
+				# Show the HTML
+				echo $html;
+				return true;
 			}
 		}
 		
