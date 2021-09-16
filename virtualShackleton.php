@@ -92,7 +92,7 @@ class virtualShackleton extends frontControllerApplication
 			  `author__JOIN__virtualShackleton__authors__reserved` varchar(85) DEFAULT NULL,
 			  `otherAuthors` mediumtext,
 			  `expedition__JOIN__virtualShackleton__expeditions__reserved` varchar(85) DEFAULT NULL,
-			  `objectBriefDescription` varchar(85) NOT NULL DEFAULT '',
+			  `objectBriefDescription` varchar(255) NOT NULL DEFAULT '',
 			  `objectFurtherDescription` mediumtext,
 			  `dateOfArticle` date NOT NULL,
 			  `endDateOfArticle` date DEFAULT NULL,
