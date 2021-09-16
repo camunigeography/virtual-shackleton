@@ -625,7 +625,7 @@ class virtualShackleton extends frontControllerApplication
 	{
 		# Define the link to a larger version
 		#!# Seems to be doing replacement against an array
-		$largerVersionLink = '<a href="' . $this->baseUrl . '/images/' . str_replace ($this->settings['mediaTypes'], '.html', $image) . '" target="_blank">';
+		$largerVersionLink = '<a href="' . $this->baseUrl . '/images/' . str_replace ($this->settings['mediaTypes'], '.html', $image) . '" target="_blank" class="noarrow">';
 		
 		# Create the HTML
 		$html  = "\n" . '<div class="image">';
