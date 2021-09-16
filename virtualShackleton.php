@@ -1,5 +1,6 @@
 <?php
 
+
 # Class to create a Virtual Shackleton online gallery
 require_once ('frontControllerApplication.php');
 class virtualShackleton extends frontControllerApplication
@@ -97,11 +98,8 @@ class virtualShackleton extends frontControllerApplication
 			  `objectFurtherDescription` mediumtext,
 			  `dateOfArticle` date NOT NULL,
 			  `endDateOfArticle` date DEFAULT NULL,
-			  `link__JOIN__virtualShackleton__articles__reserved` varchar(85) DEFAULT NULL,
-			  `subPartName` varchar(85) DEFAULT NULL,
 			  `numberOfPages` varchar(85) DEFAULT NULL,
 			  `additionalInformation` mediumtext,
-			  `extraCopies__JOIN__virtualShackleton__articles__reserved` varchar(85) DEFAULT NULL,
 			  `internalNotes` mediumtext,
 			  `photographFilename` varchar(85) DEFAULT NULL,
 			  PRIMARY KEY (`archiveNumber`)
